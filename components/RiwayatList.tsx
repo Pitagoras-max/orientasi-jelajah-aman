@@ -11,4 +11,3 @@ export default function RiwayatList({ daftarKota }: RiwayatListProps) {  return 
  </View> 
  ); 
 }
-git add components/RiwayatList.tsx
