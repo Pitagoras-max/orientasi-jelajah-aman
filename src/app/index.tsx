@@ -1,5 +1,5 @@
 // src/app/index.tsx
-import { View } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 import WeatherCard from "../components/WeatherCard";
 import SearchBox from "../components/SearchBox";
@@ -7,10 +7,9 @@ import RiwayatList from "../components/RiwayatList";
 import IndikatorAQI from "../components/IndikatorAQI";
 
 export default function HalamanUtama() {
-  const [kotaAktif, setKotaAktif] = useState("Pekalongan");
-  const [riwayat, setRiwayat] = useState<string[]>(["Pekalongan"]);
+  const [kotaAktif, setKotaAktif] = useState("PEKALONGAN");
+  const [riwayat, setRiwayat] = useState<string[]>(["Pekalongan", "SEMARANG"]);
 
-  // useEffect untuk mencatat perubahan kota aktif
   useEffect(() => {
     console.log("Kota aktif berubah menjadi:", kotaAktif);
   }, [kotaAktif]);
@@ -24,23 +23,26 @@ export default function HalamanUtama() {
   }
 
   return (
-    <View style={{ padding: 16, gap: 16 }}>
-      {/* Input Pencarian */}
+    <ScrollView contentContainerStyle={{ padding: 16, paddingTop: 40, gap: 12 }}>
+      {/* SearchBox sesuai Modul */}
       <SearchBox onCari={handleCari} />
 
-      {/* Kartu Cuaca utama */}
+      {/* Section 1: Cuaca */}
+      <Text style={{ fontWeight: "bold", fontSize: 16, marginTop: 8 }}>Cuaca</Text>
       <WeatherCard kota={kotaAktif} suhu={29} tingkatAQI="BAIK" />
 
-      {/* Keterangan Cuaca / Laporan Udara (Tahap 5) */}
+      {/* Section 2: Laporan Kualitas Udara (Latihan Mandiri Modul) */}
+      <Text style={{ fontWeight: "bold", fontSize: 16, marginTop: 8 }}>Laporan Kualitas Udara</Text>
       <IndikatorAQI 
         kota={kotaAktif} 
-        indeksAQI={45} 
+        indeksAQI={42} 
         tingkat="BAIK" 
-        diperbaruiPada="10:00 WIB" 
+        diperbaruiPada="2026-09-15 10:00" 
       />
 
-      {/* Komponen Riwayat Pencarian Kota */}
+      {/* Section 3: Riwayat Pencarian sesuai Modul */}
+      <Text style={{ fontWeight: "bold", fontSize: 16, marginTop: 8 }}>Riwayat Pencarian</Text>
       <RiwayatList daftarKota={riwayat} />
-    </View>
+    </ScrollView>
   );
 }
