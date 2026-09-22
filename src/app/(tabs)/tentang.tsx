@@ -17,7 +17,7 @@ export default function TabTentang() {
       </Text>
       <Text style={{ fontSize: typeScale.isi }}>Versi 1.0.0</Text>
       <Text style={{ fontSize: typeScale.keterangan, color: "#666" }}>
-        Dibuat oleh: [Nama Anda / NIM Anda]
+        Dibuat oleh: [ Risqi Agung Ganteng / 60324060]
       </Text>
     </SafeAreaView>
   );
