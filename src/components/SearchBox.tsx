@@ -1,6 +1,6 @@
 // src/components/SearchBox.tsx
 import { useState } from "react";
-import { View, TextInput, TouchableOpacity, Text } from "react-native";
+import { View, TextInput, TouchableOpacity, Text, Button } from "react-native";
 
 interface SearchBoxProps {
   onCari: (kota: string) => void;
@@ -30,6 +30,11 @@ export default function SearchBox({ onCari }: SearchBoxProps) {
           backgroundColor: "#FFFFFF",
           fontSize: 16,
         }}
+      />
+      <Button 
+      title="Cari" 
+      onPress={() => onCari(teks)} 
+      accessibilityLabel="Cari cuaca untuk kota yang dimasukkan" 
       />
       <TouchableOpacity
         onPress={handlePress}
