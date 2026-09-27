@@ -1,52 +1,27 @@
 // src/components/SearchBox.tsx
 import { useState } from "react";
-import { View, TextInput, TouchableOpacity, Text, Button } from "react-native";
+import { View, TextInput, Button } from "react-native";
 
 interface SearchBoxProps {
-  onCari: (kota: string) => void;
+  onCari: (teks: string) => void;
 }
 
 export default function SearchBox({ onCari }: SearchBoxProps) {
   const [teks, setTeks] = useState("");
 
-  const handlePress = () => {
-    onCari(teks);
-    setTeks("");
-  };
+  function handleChange(nilaiBaru: string) {
+    setTeks(nilaiBaru);
+    onCari(nilaiBaru); // kirim setiap perubahan, debounce diatur di pemanggilnya
+  }
 
   return (
-    <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
+    <View>
       <TextInput
-        placeholder="kota"
+        placeholder="Cari nama kota..."
         value={teks}
-        onChangeText={setTeks}
-        style={{
-          flex: 1,
-          borderWidth: 1,
-          borderColor: "#7C7C7C",
-          paddingHorizontal: 12,
-          paddingVertical: 8,
-          borderRadius: 2,
-          backgroundColor: "#FFFFFF",
-          fontSize: 16,
-        }}
+        onChangeText={handleChange}
+        accessibilityLabel="Cari cuaca untuk kota yang dimasukkan"
       />
-      <Button 
-      title="Cari" 
-      onPress={() => onCari(teks)} 
-      accessibilityLabel="Cari cuaca untuk kota yang dimasukkan" 
-      />
-      <TouchableOpacity
-        onPress={handlePress}
-        style={{
-          backgroundColor: "#2196F3",
-          paddingHorizontal: 16,
-          paddingVertical: 10,
-          borderRadius: 2,
-        }}
-      >
-        <Text style={{ color: "#FFFFFF", fontWeight: "bold", fontSize: 14 }}>CARI</Text>
-      </TouchableOpacity>
     </View>
   );
 }
