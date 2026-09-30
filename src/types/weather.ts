@@ -14,7 +14,7 @@ export interface PrakiraanHarian {
     kodeCuaca: number[];
 }
 
-export interface DataCuacaLengkaoo {
+export interface DataCuacaLengkap {
     saatIni: CuacaSaatIni;
     harian: PrakiraanHarian;
 }

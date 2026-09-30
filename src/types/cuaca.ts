@@ -1,15 +1,15 @@
-// types/cuaca.ts 
-export interface DataCuaca { 
- kota: string; 
- suhu: number; 
- kelembapan: number; 
- catatan?: string; 
-} 
-export type TingkatAQI = "BAIK" | "SEDANG" | "TIDAK_SEHAT" | "BERBAHAYA"; 
-export interface WeatherCardProps { 
- kota: string; 
- suhu: number; 
- tingkatAQI: TingkatAQI; 
+// types/cuaca.ts
+export interface DataCuaca {
+  kota: string;
+  suhu: number;
+  kelembapan: number;
+  catatan?: string;
+}
+export type TingkatAQI = "BAIK" | "SEDANG" | "TIDAK_SEHAT" | "BERBAHAYA";
+export interface WeatherCardProps {
+  kota: string;
+  suhu: number;
+  tingkatAQI: TingkatAQI;
 }
 // ... kode interface DataCuaca, TingkatAQI, WeatherCardProps yang lama ...
 
@@ -24,5 +24,5 @@ export interface WeatherCardProps {
   kota: string;
   suhu: number;
   tingkatAQI: TingkatAQI;
-  indeksAQI: number; // baru: angka hasil indesk AQI? Jika iya maka berhasil
+  indeksAQI?: number;
 }
