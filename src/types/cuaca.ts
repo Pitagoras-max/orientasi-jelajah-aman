@@ -19,3 +19,10 @@ export interface LaporanUdara {
   tingkat: "BAIK" | "SEDANG" | "TIDAK_SEHAT" | "BERBAHAYA";
   diperbaruiPada?: string;
 }
+
+export interface WeatherCardProps {
+  kota: string;
+  suhu: number;
+  tingkatAQI: TingkatAQI;
+  indeksAQI: number; // baru: angka hasil indesk AQI? Jika iya maka berhasil
+}
