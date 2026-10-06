@@ -1,6 +1,6 @@
 // src/app/(tabs)/riwayat.tsx
 import { useState, useCallback } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button,Alert } from "react-native";
 import { useFocusEffect } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ambilSemuaFavorit, hapusFavorit } from "../../services/favoritStorage";
@@ -12,6 +12,18 @@ export default function TabRiwayat() {
             ambilSemuaFavorit().then(setDaftarFavorit);
         }, [])
     );
+
+    // Membuat fungsi hapus
+    function konfirmasiHapus(id: number, nama: string) {
+        Alert.alert(
+            "Konfirmasi Hapus",
+            'Yakin hapus ${nama}?',
+            [
+                { text: "Batal", style: "cancel" },
+                { text: "Hapus", style: "destructive", onPress: () => hapus(id) },
+            ]
+        );
+    }
     async function hapus(id: number) {
         await hapusFavorit(id);
         setDaftarFavorit((prev) => prev.filter((k) => k.id !== id));
