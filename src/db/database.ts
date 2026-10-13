@@ -1,5 +1,6 @@
 // src/db/database.ts
 import * as SQLite from "expo-sqlite";
+import { Platform } from "react-native";
 const NAMA_DATABASE = "jelajah-aman.db";
 const VERSI_DATABASE = 1;
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
@@ -25,8 +26,10 @@ async function migrasiDatabase(db: SQLite.SQLiteDatabase): Promise<void> {
   let versiSaatIni = baris?.user_version ?? 0;
   if (versiSaatIni >= VERSI_DATABASE) return;
   if (versiSaatIni < 1) {
+    if (Platform.OS !== "web") {
+      await db.execAsync("PRAGMA journal_mode = 'wal';");
+    }
     await db.execAsync(`
-PRAGMA journal_mode = 'wal';
 CREATE TABLE IF NOT EXISTS cache_cuaca (
 kunci TEXT PRIMARY KEY NOT NULL,
 kota_id INTEGER NOT NULL,
