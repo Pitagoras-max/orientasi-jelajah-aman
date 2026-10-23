@@ -2,12 +2,13 @@
 import { Text, View } from "react-native";
 import { spacing, typeScale } from "../constants/styles";
 import { TingkatAQI, WeatherCardProps } from "../types/cuaca";
+import { useAppTheme } from "../context/ThemeContext";
 
 const warnaPerTingkat: Record<TingkatAQI, string> = {
-  BAIK: "green",
-  SEDANG: "goldenrod",
-  TIDAK_SEHAT: "orange",
-  BERBAHAYA: "crimson",
+  BAIK: "#10B981",
+  SEDANG: "#F59E0B",
+  TIDAK_SEHAT: "#F97316",
+  BERBAHAYA: "#EF4444",
 };
 
 export default function WeatherCard({
@@ -16,6 +17,8 @@ export default function WeatherCard({
   tingkatAQI,
   indeksAQI,
 }: WeatherCardProps) {
+  const { theme } = useAppTheme();
+
   const teksAQI =
     indeksAQI !== undefined
       ? `AQI: ${indeksAQI} (${tingkatAQI})`
@@ -31,19 +34,38 @@ export default function WeatherCard({
       accessibilityLabel={labelAksesibilitas}
       style={{
         padding: spacing.sedang,
-        borderRadius: 8,
-        backgroundColor: "#F4F7FA",
+        borderRadius: 14,
+        backgroundColor: theme.card,
+        borderWidth: 1,
+        borderColor: theme.border,
+        gap: 6,
       }}
     >
-      <Text style={{ fontWeight: "bold", fontSize: typeScale.judul }}>
+      <Text style={{ fontWeight: "bold", fontSize: typeScale.judul, color: theme.text }}>
         {kota}
       </Text>
-      <Text style={{ fontSize: 32 }}>{suhu}°C</Text>
-      <Text
-        style={{ color: warnaPerTingkat[tingkatAQI], fontSize: typeScale.isi }}
-      >
-        {teksAQI}
+      <Text style={{ fontSize: 40, fontWeight: "800", color: theme.text }}>
+        {suhu}°C
       </Text>
+      <View
+        style={{
+          alignSelf: "flex-start",
+          paddingHorizontal: 8,
+          paddingVertical: 3,
+          borderRadius: 6,
+          backgroundColor: `${warnaPerTingkat[tingkatAQI]}22`,
+        }}
+      >
+        <Text
+          style={{
+            color: warnaPerTingkat[tingkatAQI],
+            fontSize: typeScale.isi,
+            fontWeight: "700",
+          }}
+        >
+          {teksAQI}
+        </Text>
+      </View>
     </View>
   );
 }

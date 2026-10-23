@@ -87,3 +87,27 @@ export async function hapusSemuaCache(): Promise<void> {
     const db = await ambilDatabase();
     await db.runAsync("DELETE FROM cache_cuaca");
 }
+
+// Invalidation per-kota berdasarkan koordinat
+export async function hapusCacheKota(latitude: number, longitude: number): Promise<void> {
+    const db = await ambilDatabase();
+    await db.runAsync("DELETE FROM cache_cuaca WHERE kunci = ?", [
+        buatKunci(latitude, longitude),
+    ]);
+}
+
+// Invalidation per-kota berdasarkan kunci
+export async function hapusCacheKotaByKunci(kunci: string): Promise<void> {
+    const db = await ambilDatabase();
+    await db.runAsync("DELETE FROM cache_cuaca WHERE kunci = ?", [kunci]);
+}
+
+// Cek apakah data cuaca kota tersimpan di cache
+export async function cekAdaCache(latitude: number, longitude: number): Promise<boolean> {
+    try {
+        const cache = await ambilCache(latitude, longitude);
+        return cache !== null;
+    } catch {
+        return false;
+    }
+}
